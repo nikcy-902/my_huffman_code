@@ -1,5 +1,6 @@
 **Project Overview**
 The Huffman coding is a well-known method of data compression that minimises the overall amount of bits needed to encode a collection of characters. The point is to use shorter binary codes in more frequent characters and longer ones in less frequent ones in such a way that the encoding is prefix-free (no code is a prefix of another). This project illustrates the application of Huffman coding in C++ in order to produce the most optimal binary codes to represent any character set and frequency.
+
 **Step 1: Preparing the Data**
 
 The program begins by taking a string of distinct characters and an array of their corresponding frequencies. For example, letters = "abcdef" and freqArr = {5, 9, 12, 13, 16, 45}. Each character is stored in a node structure along with its frequency. These nodes are then inserted into a priority queue (min-heap) so that the nodes with the smallest frequencies are always accessed first. This ensures that the algorithm can efficiently pick the two least frequent nodes to merge at each step.
