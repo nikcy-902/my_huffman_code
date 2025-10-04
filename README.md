@@ -14,12 +14,3 @@ After the tree is constructed, the program generates Huffman codes using a recur
 Step 4 Preorder Traversal and Output.
 After the codes are generated, they are printed in preorder traversal sequence i.e. the root is first processed then the left subtree followed by the right subtree. Such traversal makes sure that the codes are presented in the sequence in which they are traversed in the tree. The resulting output displays Huffman codes of every character indicating the optimization of encoding according to the frequency of characters.
 
-**Step 5: Overview of Major Operation.**
-
-The primary task in the program has three major tasks:
-
-Initialization - It prepares the input stream of characters and frequencies of the characters and constructs leaves.
-
-Tree Construction It constructs the Huffman tree by a priority queue and using a merging process.
-
-Traversal and Output - it invokes the recursive function to create codes and output the final Huffman codes in preorder.
