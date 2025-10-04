@@ -1,0 +1,76 @@
+#include <iostream>
+#include <queue>
+#include <string>
+#include <vector>
+using namespace std;
+
+// Node structure for Huffman tree
+struct HuffNode {
+    char character;
+    int freq;
+    HuffNode *left, *right;
+
+    // Constructor for leaf nodes
+    HuffNode(char c, int f) : character(c), freq(f), left(nullptr), right(nullptr) {}
+    // Constructor for internal nodes
+    HuffNode(int f, HuffNode* l, HuffNode* r) : character('\0'), freq(f), left(l), right(r) {}
+};
+
+// Comparator for min-heap (priority queue)
+struct CompareNodes {
+    bool operator()(HuffNode* a, HuffNode* b) {
+        return a->freq > b->freq;
+    }
+};
+
+// Huffman codes are gathered using recursive traversal.
+void generateCodes(HuffNode* root, string path, vector<string>& result) {
+    if (!root) return;
+
+    // If leaf node → store the code
+    if (!root->left && !root->right) {
+        result.push_back(path);
+    }
+
+    generateCodes(root->left, path + "0", result);
+    generateCodes(root->right, path + "1", result);
+}
+
+int main() {
+    string chars = "abcdef";
+    int frequencies[] = {5, 9, 12, 13, 16, 45};
+    int n = chars.size();
+
+    
+    priority_queue<HuffNode*, vector<HuffNode*>, CompareNodes> heap;
+
+    // Create the initial nodes for each char
+    for (int i = 0; i < n; i++) {
+        heap.push(new HuffNode(chars[i], frequencies[i]));
+    }
+
+    // Building the Huffman tree 
+    while (heap.size() > 1) {
+        HuffNode* first = heap.top(); heap.pop();
+        HuffNode* second = heap.top(); heap.pop();
+
+        // Merge two smallest nodes
+        HuffNode* merged = new HuffNode(first->freq + second->freq, first, second);
+        heap.push(merged);
+    }
+
+    // Huffman tree root
+    HuffNode* root = heap.top();
+
+    // Collecting the codes here
+    vector<string> codes;
+    generateCodes(root, "", codes);
+
+    // Printing in preorder
+    for (const string& code : codes) {
+        cout << code << " ";
+    }
+    cout << endl;
+
+    return 0;
+}
